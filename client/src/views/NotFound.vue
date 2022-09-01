@@ -6,10 +6,7 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'NotFound'
-}
+<script setup lang="ts">
 </script>
 
 <style scoped>

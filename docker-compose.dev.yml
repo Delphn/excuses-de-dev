@@ -1,0 +1,35 @@
+# docker-compose for dev environment
+version: '3.9'
+
+services:
+  client:
+    image: vue-app-dev
+    stdin_open: true
+    ports: 
+      - "8000:8000"
+    networks:
+      - mevn-app
+  server:
+    image: api-server-dev
+    ports:
+      - "5000:5000"
+    networks:
+      - mevn-app
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:4.0.28-xenial
+    ports:
+      - "27017:27017"
+    networks:
+      - mevn-app
+    volumes:
+      - mongo-data:/data/db
+networks:
+  mevn-app:
+    driver: bridge
+
+volumes:
+  mongo-data:
+    driver: local

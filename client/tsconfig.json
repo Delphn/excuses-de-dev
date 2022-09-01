@@ -5,7 +5,9 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "jsx": "preserve",
+    "module": "esnext"
   },
 
   "references": [
@@ -13,9 +15,4 @@
       "path": "./tsconfig.config.json"
     }
   ],
-  
-  "compilerOptions": {
-    "jsx": "preserve",
-    "module": "esnext"
-  },
 }

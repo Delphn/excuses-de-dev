@@ -15,7 +15,7 @@
 
           <div class="modal-footer">
             <!-- a send button to send an excuse through the API and store it in the MongoDB -->
-            <button class="btn btn-primary" @click="sendExcuse">Envoyer</button>
+            <!-- <button class="btn btn-primary" @click="sendExcuse">Envoyer</button> -->
             <!-- a button to call express API and get an excuse-->
             <!-- <button @click="$emit('get-excuse', excuseMessage)" class="btn btn-primary">Get Excuse</button> -->
           </div>
@@ -33,6 +33,20 @@ const props = defineProps({
 })
 
 const excuseText = ref('')
+
+// send an excuse to the API
+// const sendExcuse = async () => {
+//   const response = await fetch('http://localhost:3000/api/excuses', {
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json'
+//     },
+//     body: JSON.stringify({ excuse: excuseText.value })
+//   })
+//   const data = await response.json()
+//   console.log(data)
+//   $emit('close')
+// }
 </script>
 
 <style scoped>
