@@ -15,7 +15,7 @@ services:
   server:
     image: api-server-dev
     ports:
-      - "5000:5000"
+      - "3000:3000"
     networks:
       - mevn-app
     depends_on:

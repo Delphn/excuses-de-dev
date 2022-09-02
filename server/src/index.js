@@ -6,7 +6,7 @@ const db = require('./db')
 const ExcusesRouter = require('./routes/excuses-router')
 
 const app = express()
-const apiPort = 5000
+const apiPort = 3000
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cors())

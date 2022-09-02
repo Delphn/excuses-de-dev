@@ -1,15 +1,15 @@
 import type { Excuse } from '@/types/ExcusesAPI'
 
 
-const apiBaseUrl = 'http://localhost:5000/api'
+const apiBaseUrl = 'http://localhost:3000/api'
 
 const state = {
   excuses: [] as Excuse[]
 }
 
 const methods = {
-  async fetchExcuses(): Promise<void> {
-    await fetch(`${apiBaseUrl}/excuses`)
+  fetchExcuses(): void {
+    fetch(`${apiBaseUrl}/excuses`)
       .then(res => res.json())
       .then(res => {
         state.excuses = res.data

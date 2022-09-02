@@ -13,6 +13,6 @@ RUN chown -R node /var/www/html/excuses-de-dev/server/node_modules
 
 USER node
 
-EXPOSE 5000
+EXPOSE 3000
 
 CMD [ "npm", "run", "start" ]
