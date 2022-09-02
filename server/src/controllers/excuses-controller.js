@@ -1,4 +1,4 @@
-const Excuse = require('../models/excuse-model');
+const Excuses = require('../models/excuse-model');
 
 createExcuse = (req, res) => {
   const body = req.body
@@ -10,7 +10,7 @@ createExcuse = (req, res) => {
     })
   }
 
-  const excuse = new Excuse(body)
+  const excuse = new Excuses(body)
 
   if (!excuse) {
     return res.status(400).json({ success: false, error: err })
@@ -34,7 +34,7 @@ createExcuse = (req, res) => {
 }
 
 getExcuseById = async (req, res) => {
-  await Excuse.findOne({ _id: req.params.id }, (err, excuse) => {
+  await Excuses.findOne({ _id: req.params.id }, (err, excuse) => {
     if (err) {
       return res.status(400).json({ success: false, error: err })
     }
@@ -49,7 +49,7 @@ getExcuseById = async (req, res) => {
 }
 
 getAllExcuses = async (req, res) => {
-  await Excuse.find({}, (err, excuses) => {
+  await Excuses.find({}, (err, excuses) => {
     if (err) {
       return res.status(400).json({ success: false, error: err })
     }

@@ -1,6 +1,6 @@
 FROM node:16.17-alpine
 
-WORKDIR /var/www/html/mevn-app/server
+WORKDIR /var/www/html/excuses-de-dev/server
 
 COPY ./package.json ./
 COPY ./package-lock.json ./
@@ -9,6 +9,10 @@ RUN npm install
 
 COPY . .
 
+RUN chown -R node /var/www/html/excuses-de-dev/server/node_modules
+
+USER node
+
 EXPOSE 5000
 
-CMD [ "index.js" ]
+CMD [ "npm", "run", "start" ]

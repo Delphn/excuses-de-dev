@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const schema = mongoose.Schema
 
-const excuseSchema = new schema(
+const Excuse = new schema(
   {
     http_code: { type: Number, required: true },
     tag: { type: String, required: true },
@@ -9,4 +9,5 @@ const excuseSchema = new schema(
   },
   { timestamps: true }
 )
-  
+
+module.exports = mongoose.model('Excuses', Excuse)

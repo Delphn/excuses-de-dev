@@ -5,19 +5,17 @@
         <div class="modal-container">
           <div class="modal-header">
             Ajouter une excuse
-            <button class="close-btn"  @click="$emit('close')">X</button>
+            <button class="close-btn"  @click="closeModal">X</button>
           </div>
 
           <div class="modal-body">
-            <!-- a textarea of text max 250 characters -->
             <textarea v-model="excuseText" rows="4" cols="34" maxlength="50" placeholder="Votre excuse"></textarea>
+            <p class="error-msg">{{ errorMessage }}</p>
           </div>
 
           <div class="modal-footer">
             <!-- a send button to send an excuse through the API and store it in the MongoDB -->
-            <!-- <button class="btn btn-primary" @click="sendExcuse">Envoyer</button> -->
-            <!-- a button to call express API and get an excuse-->
-            <!-- <button @click="$emit('get-excuse', excuseMessage)" class="btn btn-primary">Get Excuse</button> -->
+            <button class="btn btn-primary" @click="sendExcuse">Envoyer</button>
           </div>
         </div>
       </div>
@@ -26,27 +24,52 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, inject } from 'vue'
 
-const props = defineProps({
-  show: Boolean
-})
+// get the value of the show prop
+defineProps({ show: Boolean })
 
+const store = inject('store')
+const emit = defineEmits(['close'])
 const excuseText = ref('')
+const errorMessage = ref('')
+
+const closeModal = () => {
+  excuseText.value = ''
+  emit('close')
+}
 
 // send an excuse to the API
-// const sendExcuse = async () => {
-//   const response = await fetch('http://localhost:3000/api/excuses', {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json'
-//     },
-//     body: JSON.stringify({ excuse: excuseText.value })
-//   })
-//   const data = await response.json()
-//   console.log(data)
-//   $emit('close')
-// }
+const sendExcuse = async () => {
+
+  // if the excuse is empty, display an error message
+  if (excuseText.value === '') {
+    errorMessage.value = 'Vous devez fournir une excuse !'
+    return
+  }
+
+  const tags = ["Inexcusable", "random", "Novelty Implementations", "Substance", "Somebody Else's Problem"]
+
+  // get a random number between 800 and 1000
+  const httpCode = Math.floor(Math.random() * (1000 - 800 + 1)) + 800
+
+  // get a random word from the list of tags
+  const tag = tags[Math.floor(Math.random() * tags.length)]
+
+
+  const excuse = {
+    http_code: httpCode,
+    tag: tag,
+    message: excuseText.value
+  }
+
+  store.methods.addExcuse(excuse).then(() => {
+    errorMessage.value = ''
+    closeModal()
+  }).catch((err: string) => {
+    errorMessage.value = err
+  })
+}
 </script>
 
 <style scoped>
@@ -106,5 +129,10 @@ const excuseText = ref('')
 
 .close-btn {
   float: right;
+}
+
+.error-msg {
+  color: red;
+  margin-top: 5px;
 }
   </style>

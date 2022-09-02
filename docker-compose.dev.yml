@@ -9,6 +9,9 @@ services:
       - "8000:8000"
     networks:
       - mevn-app
+    volumes:
+      - ./client:/var/www/html/excuses-de-dev/client
+      - /var/www/html/excuses-de-dev/client/node_modules
   server:
     image: api-server-dev
     ports:
@@ -17,15 +20,18 @@ services:
       - mevn-app
     depends_on:
       - mongo
+    volumes:
+      - ./server:/var/www/html/excuses-de-dev/server
+      - /var/www/html/excuses-de-dev/server/node_modules
 
   mongo:
-    image: mongo:4.0.28-xenial
+    image: mongo:6.0.1-focal
     ports:
       - "27017:27017"
     networks:
       - mevn-app
     volumes:
-      - mongo-data:/data/db
+      - ./mongo-data:/mongo-data
 networks:
   mevn-app:
     driver: bridge

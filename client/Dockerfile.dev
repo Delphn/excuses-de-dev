@@ -1,6 +1,6 @@
 FROM node:16.17-alpine
 
-WORKDIR /var/www/html/mevn-app/client
+WORKDIR /var/www/html/excuses-de-dev/client
 
 COPY ./package.json ./
 COPY ./package-lock.json ./
@@ -8,6 +8,10 @@ COPY ./package-lock.json ./
 RUN npm install
 
 COPY . .
+
+RUN chown -R node /var/www/html/excuses-de-dev/client/node_modules
+
+USER node
 
 EXPOSE 8000
 
