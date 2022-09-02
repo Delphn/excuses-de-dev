@@ -4,7 +4,7 @@ import router from './router'
 import store from './store'
 
 // init the store excuses
-store.methods.fetchExcuses();
+store.methods.fetchExcuses()
 
 const app = createApp(App)
 

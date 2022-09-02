@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import store from '@/store';  
+import store from '@/store'
 import { provide } from 'vue'
 import { RouterView } from 'vue-router'
 

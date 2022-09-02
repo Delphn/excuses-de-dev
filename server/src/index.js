@@ -15,7 +15,7 @@ app.use(bodyParser.json())
 db.on('error', console.error.bind(console, 'MongoDB connection error:'))
 
 app.get('/', (req, res) => {
-    res.send(`MongoDB is running... 🔥 ${JSON.stringify(Object.keys(db.collections))}`)
+    res.send('MongoDB is running... 🔥')
 })
 
 app.use('/api', ExcusesRouter)

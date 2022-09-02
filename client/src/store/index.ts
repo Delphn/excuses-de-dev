@@ -1,5 +1,8 @@
+/**
+ * Store created with composition API
+ * Avoided using Pinia since the store is small and simple
+ */ 
 import type { Excuse } from '@/types/ExcusesAPI'
-
 
 const apiBaseUrl = 'http://localhost:3000/api'
 
@@ -13,7 +16,6 @@ const methods = {
       .then(res => res.json())
       .then(res => {
         state.excuses = res.data
-        console.log('excuses', state.excuses)
       })
       .catch(err => console.log(err))
   },
@@ -39,7 +41,17 @@ const methods = {
           if (!res.success) {
             reject(res.message)
           }
-          state.excuses.push(excuse)
+
+          // update the the excuse object to respect the type definition
+          const updatedExcuse = {
+            ...excuse, 
+            _id: res._id,
+            createdAt: res.createdAt,
+            updatedAt: res.updatedAt,
+            __v: res.__v
+          }
+
+          state.excuses.push(updatedExcuse)
           alert(res.message)
           resolve()
         })

@@ -7,3 +7,9 @@ export interface Excuse {
   updatedAt: string;
   __v:       number;
 }
+
+export interface ExcuseToCreate {
+  http_code: number;
+  tag:       string;
+  message:   string;
+}

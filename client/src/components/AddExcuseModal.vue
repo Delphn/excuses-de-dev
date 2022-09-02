@@ -14,7 +14,6 @@
           </div>
 
           <div class="modal-footer">
-            <!-- a send button to send an excuse through the API and store it in the MongoDB -->
             <button class="btn btn-primary" @click="sendExcuse">Envoyer</button>
           </div>
         </div>
@@ -25,11 +24,12 @@
 
 <script setup lang="ts">
 import { ref, inject } from 'vue'
+import type { Store } from '@/types/Store'
 
 // get the value of the show prop
 defineProps({ show: Boolean })
 
-const store = inject('store')
+const store: Store | undefined = inject('store')
 const emit = defineEmits(['close'])
 const excuseText = ref('')
 const errorMessage = ref('')
@@ -40,8 +40,7 @@ const closeModal = () => {
 }
 
 // send an excuse to the API
-const sendExcuse = async () => {
-
+const sendExcuse = () => {
   // if the excuse is empty, display an error message
   if (excuseText.value === '') {
     errorMessage.value = 'Vous devez fournir une excuse !'
@@ -63,7 +62,7 @@ const sendExcuse = async () => {
     message: excuseText.value
   }
 
-  store.methods.addExcuse(excuse).then(() => {
+  store?.methods?.addExcuse(excuse).then(() => {
     errorMessage.value = ''
     closeModal()
   }).catch((err: string) => {

@@ -22,6 +22,9 @@ createExcuse = (req, res) => {
       return res.status(201).json({
         success: true,
         id: excuse._id,
+        createdAt: excuse.createdAt,
+        updatedAt: excuse.updatedAt,
+        __v: excuse.__v,
         message: 'Excuse created!',
       })
     })

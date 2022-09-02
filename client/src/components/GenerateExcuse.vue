@@ -11,10 +11,11 @@
 </template>
 
 <script setup lang="ts">
-import type { Excuse } from '@/types/ExcusesAPI';
+import type { Excuse } from '@/types/ExcusesAPI'
+import type { Store } from '@/types/Store'
 import { ref, inject } from 'vue'
 
-const store = inject('store')
+const store: Store | undefined = inject('store')
 const loading = ref(false)
 const emit = defineEmits(['get-excuse'])
 
@@ -25,8 +26,8 @@ const generateExcuse = () => {
   loading.value = true
   setTimeout(() => {
     loading.value = false
-    const randomExcuse: Excuse = store.getters.randomExcuse()
-    emit('get-excuse', randomExcuse.message)
+    const randomExcuse: Excuse | undefined = store?.getters?.randomExcuse()
+    emit('get-excuse', randomExcuse?.message)
   }, randomTime)
 }
 </script>
